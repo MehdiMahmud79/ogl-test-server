@@ -1,32 +1,41 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Angular build output
+dist/
+tmp/
+out-tsc/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Node modules
+node_modules/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# Angular cache
+.angular/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Logs
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
 
-### VS Code ###
+# IDEs and editors
 .vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files (optional but recommended)
+.env
+.env.local
+.env.*.local
+
+# Angular environment files (if sensitive)
+src/environments/*.ts
+
+# Coverage reports
+coverage/
+
+# Compiled files
+*.tsbuildinfo
