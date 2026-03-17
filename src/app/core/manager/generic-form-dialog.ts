@@ -7,23 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormDialogData } from '../models';
 
-export enum ActionMode {
-  CREATE = 'create',
-  EDIT = 'edit',
-}
-export type FormFieldConfig<T> = {
-  key: keyof T;
-  label: string;
-  type: 'text' | 'number' | 'textarea';
-  placeholder: string;
-};
-export type FormDialogData<T> = {
-  model: T;
-  mode: ActionMode;
-  formSchema: any;
-  fields: FormFieldConfig<T>[];
-};
+
 
 @Component({
   selector: 'app-generic-form-dialog',

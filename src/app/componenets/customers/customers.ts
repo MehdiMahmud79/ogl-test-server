@@ -7,8 +7,9 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { take } from 'rxjs';
-import { ActionMode, FormDialogData, GenericFormDialog } from '../../core/manager/generic-form-dialog';
-import { Customer } from './enteties';
+import { GenericFormDialog } from '../../core/manager/generic-form-dialog';
+import { Customer } from '../../core/models/customer';
+import { ActionMode, FormDialogData } from '../../core/models';
 
 @Component({
   selector: 'app-customers',

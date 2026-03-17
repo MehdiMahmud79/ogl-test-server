@@ -7,9 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
-import { ActionMode, FormDialogData, GenericFormDialog } from '../../core/manager/generic-form-dialog';
-import { Product } from './enteties';
+import { GenericFormDialog } from '../../core/manager/generic-form-dialog';
+import { Product } from '../../core/models/product';
 import { maxLength, required, schema } from '@angular/forms/signals';
+import { ActionMode, FormDialogData } from '../../core/models';
 
 const initialProductModel: Product = {
   id: null,
