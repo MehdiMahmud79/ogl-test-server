@@ -24,9 +24,6 @@ export class Products {
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngAfterViewInit() {
-  }
-
   //#endregion
   /**
    *
