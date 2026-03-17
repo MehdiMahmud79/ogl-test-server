@@ -40,7 +40,7 @@ public class customerController {
     return ResponseEntity.ok(customerRepository.save(customer));
   }
   @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody Customer updatedCustomer) {
+  public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody Customer updatedCustomer) {
     Optional<Customer> existingCustomerOpt = customerRepository.findById(id);
 
     if (!existingCustomerOpt.isPresent()) {
@@ -49,9 +49,7 @@ public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @Req
 
     Customer existingCustomer = existingCustomerOpt.get();
     
-    // Update fields - assuming Customer has setters; update as needed
     existingCustomer.setName(updatedCustomer.getName());
-    // ...update other fields similarly
     
     Customer savedCustomer = customerRepository.save(existingCustomer);
     return ResponseEntity.ok(savedCustomer);
