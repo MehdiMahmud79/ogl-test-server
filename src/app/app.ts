@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { environment } from '../environments/environment';
-import { Header } from './core/header/header';
+import { Header } from './shared/header/header';
 
 @Component({
   selector: 'app-root',

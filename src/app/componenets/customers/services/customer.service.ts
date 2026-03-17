@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { ApiService } from '../../../services/api-service/api.service';
-import { Customer } from '../../../core/models/customer';
+import { Customer } from '../../../shared/models';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,6 @@ export class CustomerService {
    */
   public getCustomers(): void {
     this.apiService.getCustomers().subscribe((customers) => {
-      console.log(customers);
       this.customersSig.set(customers as Customer[]);
     });
   }
@@ -55,4 +54,16 @@ export class CustomerService {
       );
     });
   }
+
+  /**
+   * Method to delete a customer
+   * @param customerId ID of the customer to be deleted
+   * @returns void
+   */
+  public deleteCustomer(customerId: number): void {
+    this.apiService.deleteCustomer(customerId).subscribe(() => {
+      this.customersSig.update((customers) => customers.filter((c) => c.id !== customerId));
+    });
+  }
+
 }

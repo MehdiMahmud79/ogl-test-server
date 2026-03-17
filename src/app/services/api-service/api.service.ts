@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Product } from '../../core/models/product';
-import { Customer } from '../../core/models/customer';
 import { Observable } from 'rxjs';
+import { Customer, Product } from '../../shared/models';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +44,11 @@ export class ApiService {
   editCustomer(customer: Customer): Observable<Customer> {
     const url = `${this.apiUrl}/customer/${customer.id}`;
     return this.httpClient.put<Customer>(url, customer, { responseType: 'json' });
+  }
+  /** Method to delete a customer */
+  deleteCustomer(customerId: number): Observable<void> {
+    const url = `${this.apiUrl}/customer/${customerId}`;
+    return this.httpClient.delete<void>(url, { responseType: 'json' });
   }
   //#endregion
 

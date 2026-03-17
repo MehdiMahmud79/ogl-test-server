@@ -7,9 +7,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { take } from 'rxjs';
-import { GenericFormDialog } from '../../core/manager/generic-form-dialog';
-import { Customer } from '../../core/models/customer';
-import { ActionMode, FormDialogData } from '../../core/models';
+import { GenericFormDialog } from '../../shared/manager/generic-form-dialog';
+import { ActionMode, Customer, FormDialogData } from '../../shared/models';
 
 @Component({
   selector: 'app-customers',
@@ -58,7 +57,8 @@ export class Customers {
     },
 
     );
-    dialogRef.afterClosed().pipe(take(1)).subscribe(({ newCustomer }) => {
+    dialogRef.afterClosed().pipe(take(1)).subscribe((result) => {
+      const newCustomer = result?.data;
       if (newCustomer) {
         this.customerService.addCustomer(newCustomer);
       }
@@ -91,6 +91,15 @@ export class Customers {
         this.customerService.editCustomer(updatedCustomer);
       }
     });
+  }
+  /**
+   * Method to delete a customer. This is a placeholder method and should be implemented to call the appropriate service method to delete the customer.
+   * @param customer - The customer to be deleted.
+   * @returns void
+   */
+  public deleteCustomer(customer: Customer): void {
+
+    this.customerService.deleteCustomer(customer.id!)
   }
   /**
    * Method to announce the change in sort state for assistive technology.
