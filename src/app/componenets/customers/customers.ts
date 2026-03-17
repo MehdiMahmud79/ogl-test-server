@@ -1,17 +1,13 @@
 import { Component, computed, effect, inject, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { FormField } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { CustomerService } from './services/customer.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { AddProduct } from '../products/add-product/add-product';
 import { take } from 'rxjs';
+import { AddCustomer } from './add-customer/add-customer';
 
 @Component({
   selector: 'app-customers',
@@ -38,7 +34,7 @@ export class Customers {
     this.customerService.getCustomers();
   }
   addCustomer() {
-    const dialogRef = this.dialog.open(AddProduct,
+    const dialogRef = this.dialog.open(AddCustomer,
       {
         width: '900px',
         height: '600px',
@@ -46,9 +42,9 @@ export class Customers {
       },
 
     );
-    dialogRef.afterClosed().pipe(take(1)).subscribe(({ newProduct }) => {
-      if (newProduct) {
-        this.customerService.addCustomer(newProduct);
+    dialogRef.afterClosed().pipe(take(1)).subscribe(({ newCustomer }) => {
+      if (newCustomer) {
+        this.customerService.addCustomer(newCustomer);
       }
 
     });
