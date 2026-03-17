@@ -35,7 +35,14 @@ export class Customers {
   ngOnInit() {
     this.customerService.getCustomers();
   }
-  addCustomer() {
+
+  /**
+   * Method to open a dialog for adding a new customer.
+   *  It uses the GenericFormDialog component and passes the necessary data for creating a new customer.
+   *  After the dialog is closed, it checks if a new customer was created and adds it to the customer service.
+   * @returns void
+   */
+  public addCustomer(): void {
     const dialogRef = this.dialog.open(GenericFormDialog<Customer>, {
       data: {
         model: { id: null, name: '' } as Customer,
@@ -58,9 +65,43 @@ export class Customers {
 
     });
   }
-
-  /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort) {
+  /**
+   * Method to open a dialog for editing an existing customer.
+   * It uses the GenericFormDialog component and passes the necessary data for editing the selected customer.
+   * After the dialog is closed, it checks if the customer was updated and updates it in the customer service.
+   */
+  public editCustomer(customer: Customer): void {
+    const dialogRef = this.dialog.open(GenericFormDialog<Customer>, {
+      data: {
+        model: { ...customer },
+        mode: ActionMode.EDIT,
+        formSchema: {}, // Replace with actual schema
+        fields: [
+          { key: 'name', label: 'Customer Name', type: 'text', placeholder: 'Enter name' }
+        ]
+      } as FormDialogData<Customer>,
+      width: '900px',
+      height: '600px',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().pipe(take(1)).subscribe((result) => {
+      const updatedCustomer = result?.data;
+      console.log(updatedCustomer);
+      if (updatedCustomer) {
+        this.customerService.editCustomer(updatedCustomer);
+      }
+    });
+  }
+  /**
+   * Method to announce the change in sort state for assistive technology.
+   * @param sortState - The current state of sorting, which includes the active sort and the direction
+   * (ascending, descending, or none). This method uses the LiveAnnouncer service to announce the sorting
+   * state to assistive technologies, such as screen readers.
+   * If there is an active sort direction, it announces whether the sorting is ascending or descending. If there is no active sort,
+   *  it announces that sorting has been cleared.
+   * @returns void
+   */
+  public announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {

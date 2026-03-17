@@ -41,4 +41,18 @@ export class CustomerService {
       this.customersSig.update((customers) => [...customers, newCustomer as Customer]);
     });
   }
+  /**
+   * Method to edit an existing customer
+   * @param customer Customer to be edited
+   * @returns void
+   */
+  public editCustomer(customer: Customer): void {
+    // Call the API service to edit the customer
+    this.apiService.editCustomer(customer).subscribe((updatedCustomer) => {
+      // Update the customers signal with the updated customer
+      this.customersSig.update((customers) =>
+        customers.map((c) => (c.id === updatedCustomer.id ? (updatedCustomer as Customer) : c))
+      );
+    });
+  }
 }

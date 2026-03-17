@@ -38,7 +38,7 @@
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
         <!-- Add action buttons here, e.g., edit and delete -->
-        <button mat-icon-button aria-label="Edit customer">
+        <button mat-icon-button aria-label="Edit customer" (click)="editCustomer(element)">
           <mat-icon class="edit-btn">edit</mat-icon>
         </button>
         <button mat-icon-button aria-label="Delete customer">

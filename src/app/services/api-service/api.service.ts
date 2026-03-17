@@ -41,6 +41,11 @@ export class ApiService {
     const url = `${this.apiUrl}/customer`;
     return this.httpClient.post<Customer>(url, customer, { responseType: 'json' });
   }
+  /** Method to edit an existing customer */
+  editCustomer(customer: Customer): Observable<Customer> {
+    const url = `${this.apiUrl}/customer/${customer.id}`;
+    return this.httpClient.put<Customer>(url, customer, { responseType: 'json' });
+  }
   //#endregion
 
 
