@@ -1,26 +1,40 @@
 <div class="container mx-auto p-4">
-  <div class="">
-    <h1 class="text-3xl text-yellow-600 p-2 m-2">Add New Product</h1>
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-3xl text-yellow-600 p-2 m-2">Product Details</h1>
+
+    <button matButton mat-dialog-close>Cancel</button>
+    <button matButton cdkFocusInitial (click)="onSubmit()"><mat-icon>save</mat-icon> Submit</button>
   </div>
 
   <form class="flex flex-col gap-4">
     <mat-form-field class="example-full-width">
       <mat-label>SKU</mat-label>
       <input matInput placeholder="ABC123" [formField]="productForm.sku" />
+      @if (productForm.sku().invalid() && productForm.sku().touched()) {
+        @for (error of productForm.sku().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
       <mat-label>Price</mat-label>
       <input matInput type="number" placeholder="0.00" [formField]="productForm.price" />
+      @if (productForm.price().invalid() && productForm.price().touched()) {
+        @for (error of productForm.price().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
       <mat-label>Description</mat-label>
-      <textarea
-        matInput
-        placeholder="Ex. It makes me feel..."
-        [formField]="productForm.description"
-      ></textarea>
+      <textarea matInput placeholder="" [formField]="productForm.description"></textarea>
+      @if (productForm.description().invalid() && productForm.description().touched()) {
+        @for (error of productForm.description().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
     </mat-form-field>
   </form>
 </div>

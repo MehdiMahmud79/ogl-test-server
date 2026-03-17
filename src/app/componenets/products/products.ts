@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProduct } from './add-product/add-product';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -55,13 +56,16 @@ export class Products {
   public addProduct(): void {
     const dialogRef = this.dialog.open(AddProduct,
       {
-        width: '800px',
-        height: '400px',
-      }
+        width: '900px',
+        height: '600px',
+        disableClose: true,
+      },
+
     );
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      // this.productsService.addProduct(result);
+    dialogRef.afterClosed().pipe(take(1)).subscribe(({ newProduct }) => {
+      if (newProduct) {
+        this.productsService.addProduct(newProduct);
+      }
 
     });
   }
