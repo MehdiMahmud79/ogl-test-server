@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "client": {
+    "ogl-client": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -26,10 +26,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/material-theme.scss",
-              "src/styles.css"
-            ]
+            "styles": ["src/material-theme.scss", "src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -59,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "client:build:production"
+              "buildTarget": "ogl-client:build:production"
             },
             "development": {
-              "buildTarget": "client:build:development"
+              "buildTarget": "ogl-client:build:development"
             }
           },
           "defaultConfiguration": "development"

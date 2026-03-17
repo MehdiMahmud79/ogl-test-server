@@ -1,5 +1,5 @@
-export interface Product {
-  id: number;
+export type Product = {
+  id: number | null;
   sku: string;
   price: number;
   description: string;

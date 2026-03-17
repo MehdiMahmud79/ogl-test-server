@@ -1,0 +1,26 @@
+<div class="container mx-auto p-4">
+  <div class="">
+    <h1 class="text-3xl text-yellow-600 p-2 m-2">Add New Product</h1>
+  </div>
+
+  <form class="flex flex-col gap-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>SKU</mat-label>
+      <input matInput placeholder="ABC123" [formField]="productForm.sku" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Price</mat-label>
+      <input matInput type="number" placeholder="0.00" [formField]="productForm.price" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        placeholder="Ex. It makes me feel..."
+        [formField]="productForm.description"
+      ></textarea>
+    </mat-form-field>
+  </form>
+</div>

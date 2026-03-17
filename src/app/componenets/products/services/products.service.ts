@@ -18,6 +18,10 @@ export class ProductsService {
 
 
   //#region public methods
+  /**
+   * Method to get all products
+   * @returns void
+   */
   public getProducts(): void {
     this.apiService.getProducts().subscribe((products) => {
       console.log(products);
@@ -25,4 +29,16 @@ export class ProductsService {
     });
   }
 
+  /**
+   * Method to add a new product
+   * @param product Product to be added
+   * @returns void
+   */
+  public addProduct(product: Product): void {
+    // Call the API service to add the product
+    this.apiService.addProduct(product).subscribe((newProduct) => {
+      // Update the products signal with the new product
+      this.productsSig.update((products) => [...products, newProduct as Product]);
+    });
+  }
 }
