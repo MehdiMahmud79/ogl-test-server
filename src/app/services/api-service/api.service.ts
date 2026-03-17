@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Product } from '../../componenets/products/enteties';
+import { Customer } from '../../componenets/customers/enteties';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,20 +20,26 @@ export class ApiService {
 
   //#region public methods
   /** Method to get all products */
-  getProducts() {
+  getProducts(): Observable<Product[]> {
     const url = `${this.apiUrl}/product`;
-    return this.httpClient.get(url, { responseType: 'json' });
+    return this.httpClient.get<Product[]>(url, { responseType: 'json' });
   }
   /** Method to add a new product */
-  addProduct(product: Product) {
+  addProduct(product: Product): Observable<Product> {
     const url = `${this.apiUrl}/product`;
-    return this.httpClient.post(url, product, { responseType: 'json' });
+    return this.httpClient.post<Product>(url, product, { responseType: 'json' });
   }
 
   /** Method to get all customers */
-  getCustomers() {
+  getCustomers(): Observable<Customer[]> {
     const url = `${this.apiUrl}/customer`;
-    return this.httpClient.get(url, { responseType: 'json' });
+    return this.httpClient.get<Customer[]>(url, { responseType: 'json' });
+  }
+
+  /** Method to add a new customer */
+  addCustomer(customer: Customer): Observable<Customer> {
+    const url = `${this.apiUrl}/customer`;
+    return this.httpClient.post<Customer>(url, customer, { responseType: 'json' });
   }
   //#endregion
 

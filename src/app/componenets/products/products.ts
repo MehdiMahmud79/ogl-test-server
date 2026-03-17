@@ -20,8 +20,6 @@ export class Products {
   private readonly productsService = inject(ProductsService);
   private _liveAnnouncer = inject(LiveAnnouncer);
   private readonly dialog = inject(MatDialog);
-
-
   //#endregion
 
   //#region properties
@@ -42,7 +40,6 @@ export class Products {
 
   /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
-    console.log(sortState);
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
