@@ -54,4 +54,15 @@ public class customerController {
     Customer savedCustomer = customerRepository.save(existingCustomer);
     return ResponseEntity.ok(savedCustomer);
 }
+@DeleteMapping(value = "/{id}")
+public ResponseEntity<Void> deleteCustomer(@PathVariable("id") long id) {
+    Optional<Customer> existingCustomer = customerRepository.findById(id);
+
+    if (!existingCustomer.isPresent()) {
+        return ResponseEntity.notFound().build();
+    }
+
+    customerRepository.deleteById(id);
+    return ResponseEntity.noContent().build();
+}
 }
