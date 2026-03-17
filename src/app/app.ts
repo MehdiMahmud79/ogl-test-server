@@ -11,21 +11,5 @@ import { Header } from './core/header/header';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('client');
-  protected httpClient: HttpClient = inject(HttpClient);
 
-  ngOnInit() {
-    const url = environment.apiUrl + '/product';
-    this.httpClient.get(url, { responseType: 'json' }).subscribe({
-      next: (response) => {
-        console.log('Response from backend:', response);
-
-      },
-      error: (error) => {
-        console.error('Error fetching data from backend:', error);
-        this.title.set('Error fetching data');
-      }
-    }
-    );
-  }
 }
