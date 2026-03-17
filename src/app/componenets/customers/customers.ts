@@ -7,7 +7,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { take } from 'rxjs';
-import { AddCustomer } from './add-customer/add-customer';
+import { ActionMode, FormDialogData, GenericFormDialog } from '../../core/manager/generic-form-dialog';
+import { Customer } from './enteties';
 
 @Component({
   selector: 'app-customers',
@@ -23,7 +24,7 @@ export class Customers {
   private readonly dialog = inject(MatDialog);
   //#endregion
   public customersListSig = this.customerService.customersSig;
-  public displayedColumns: string[] = ['id', 'name'];
+  public displayedColumns: string[] = ['id', 'name', 'actions'];
   public dataSource = computed(() => new MatTableDataSource(this.customersListSig()));
   @ViewChild(MatSort) sort!: MatSort;
   private _ = effect(() => {
@@ -34,12 +35,19 @@ export class Customers {
     this.customerService.getCustomers();
   }
   addCustomer() {
-    const dialogRef = this.dialog.open(AddCustomer,
-      {
-        width: '900px',
-        height: '600px',
-        disableClose: true,
-      },
+    const dialogRef = this.dialog.open(GenericFormDialog<Customer>, {
+      data: {
+        model: { id: null, name: '' } as Customer,
+        mode: ActionMode.CREATE,
+        formSchema: {}, // Replace with actual schema
+        fields: [
+          { key: 'name', label: 'Customer Name', type: 'text', placeholder: 'Enter name' }
+        ]
+      } as FormDialogData<Customer>,
+      width: '900px',
+      height: '600px',
+      disableClose: true,
+    },
 
     );
     dialogRef.afterClosed().pipe(take(1)).subscribe(({ newCustomer }) => {

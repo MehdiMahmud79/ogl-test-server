@@ -6,9 +6,32 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { AddProduct } from './add-product/add-product';
 import { take } from 'rxjs';
+import { ActionMode, FormDialogData, GenericFormDialog } from '../../core/manager/generic-form-dialog';
+import { Product } from './enteties';
+import { maxLength, required, schema } from '@angular/forms/signals';
 
+const initialProductModel: Product = {
+  id: null,
+  sku: '',
+  price: null,
+  description: '',
+};
+const productSchema = schema<Product>((rootPath) => {
+  required(rootPath.sku, {
+    message: 'SKU is required.',
+  });
+  required(rootPath.price, {
+    message: 'Price must be greater than 0.',
+  });
+
+  required(rootPath.description, {
+    message: 'Description is required.',
+  });
+  maxLength(rootPath.description, 255, {
+    message: 'Description must be less than 255 characters.',
+  });
+})
 @Component({
   selector: 'app-products',
   imports: [MatTableModule, MatSortModule, MatButtonModule, MatIconModule],
@@ -51,17 +74,23 @@ export class Products {
    * @returns void
    */
   public addProduct(): void {
-    const dialogRef = this.dialog.open(AddProduct,
-      {
-        width: '900px',
-        height: '600px',
-        disableClose: true,
-      },
+    const dialogRef = this.dialog.open(GenericFormDialog<Product>, {
+      data: {
+        model: initialProductModel,
+        formSchema: productSchema,
+        mode: ActionMode.CREATE,
+        fields: [
+          { key: 'sku', label: 'SKU', type: 'text', placeholder: 'ABC123' },
+          { key: 'price', label: 'Price', type: 'number', placeholder: '0.00' },
+          { key: 'description', label: 'Description', type: 'textarea', placeholder: '' }
+        ]
 
-    );
-    dialogRef.afterClosed().pipe(take(1)).subscribe(({ newProduct }) => {
-      if (newProduct) {
-        this.productsService.addProduct(newProduct);
+      } as FormDialogData<Product>,
+      disableClose: true,
+    });
+    dialogRef.afterClosed().pipe(take(1)).subscribe((result) => {
+      if (result?.data) {
+        this.productsService.addProduct(result.data);
       }
 
     });
