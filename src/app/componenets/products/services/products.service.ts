@@ -20,6 +20,7 @@ export class ProductsService {
   //#region public methods
   public getProducts(): void {
     this.apiService.getProducts().subscribe((products) => {
+      console.log(products);
       this.productsSig.set(products as Product[]);
     });
   }
