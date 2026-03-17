@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ApiService } from '../../../services/api-service/api.service';
+import { ApiService } from '../../../services/api/api.service';
 import { Product } from '../../../shared/models';
 
 @Injectable({
@@ -12,10 +12,7 @@ export class ProductsService {
   //#endregion
   //#region properties
   public productsSig = signal<Product[]>([]);
-
   //#endregion
-
-
 
   //#region public methods
   /**
@@ -24,7 +21,6 @@ export class ProductsService {
    */
   public getProducts(): void {
     this.apiService.getProducts().subscribe((products) => {
-      console.log(products);
       this.productsSig.set(products as Product[]);
     });
   }
@@ -35,10 +31,9 @@ export class ProductsService {
    * @returns void
    */
   public addProduct(product: Product): void {
-    // Call the API service to add the product
     this.apiService.addProduct(product).subscribe((newProduct) => {
-      // Update the products signal with the new product
       this.productsSig.update((products) => [...products, newProduct as Product]);
     });
   }
+  //#endregion
 }

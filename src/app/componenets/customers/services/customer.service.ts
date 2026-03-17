@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ApiService } from '../../../services/api-service/api.service';
+import { ApiService } from '../../../services/api/api.service';
 import { Customer } from '../../../shared/models';
 
 @Injectable({
@@ -12,10 +12,7 @@ export class CustomerService {
   //#endregion
   //#region properties
   public customersSig = signal<Customer[]>([]);
-
   //#endregion
-
-
 
   //#region public methods
   /**
@@ -66,4 +63,5 @@ export class CustomerService {
     });
   }
 
+  //#endregion
 }

@@ -6,8 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormDialogData } from '../models';
+import { NotificationService } from '../../services/notification/notifcation-service';
 
 
 
@@ -21,7 +21,7 @@ import { FormDialogData } from '../models';
 export class GenericFormDialog<T> {
 
   readonly dialogRef = inject(MatDialogRef<GenericFormDialog<T>>);
-  private _snackBar = inject(MatSnackBar);
+  private notificationService = inject(NotificationService);
 
   public modelSig!: ReturnType<typeof signal<T>>;
   public formInstance: any;
@@ -37,9 +37,7 @@ export class GenericFormDialog<T> {
         data: this.formInstance().value()
       });
     } else {
-      this._snackBar.open(`Form is invalid!`, 'Close', {
-        duration: 3000,
-      });
+      this.notificationService.showError('Form is invalid!', 'Please correct the errors and try again.');
     }
   }
 

@@ -9,6 +9,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { take } from 'rxjs';
 import { GenericFormDialog } from '../../shared/manager/generic-form-dialog';
 import { ActionMode, Customer, FormDialogData } from '../../shared/models';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-customers',
@@ -98,8 +99,21 @@ export class Customers {
    * @returns void
    */
   public deleteCustomer(customer: Customer): void {
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: {
+          title: `Delete Customer`,
+          text: `Are you sure you want to delete this customer?`,
+          cancelBtn: false,
+        },
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result?.success) {
+          this.customerService.deleteCustomer(customer.id!)
 
-    this.customerService.deleteCustomer(customer.id!)
+        }
+      });
   }
   /**
    * Method to announce the change in sort state for assistive technology.
