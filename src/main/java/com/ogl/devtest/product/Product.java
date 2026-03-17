@@ -3,6 +3,8 @@ package com.ogl.devtest.product;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -18,6 +20,11 @@ public class Product {
   @NotNull
   private BigDecimal price;
 
+  @NotEmpty
+  @Size(max = 255)
+  @Column(length = 255, nullable = false)
+  private String description;
+  
   public long getId() {
     return id;
   }
@@ -40,5 +47,13 @@ public class Product {
 
   public void setPrice(BigDecimal price) {
     this.price = price;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
