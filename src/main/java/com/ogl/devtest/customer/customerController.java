@@ -4,7 +4,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.ogl.devtest.interfaces.CityCount;
+
 import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -80,5 +83,10 @@ public class customerController {
 
     customerRepository.deleteById(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping(value = "/count-by-city", produces = MediaType.APPLICATION_JSON_VALUE)
+  public List<CityCount> countByCity() {
+    return customerRepository.countCustomersByCity();
   }
 }
