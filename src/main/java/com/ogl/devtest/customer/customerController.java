@@ -16,6 +16,7 @@ public class customerController {
     this.customerRepository = customerRepository;
   }
 
+  // TODO: Add pagination and sorting to the findAll method
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Customer> findAll() {
     return customerRepository.findAll();
